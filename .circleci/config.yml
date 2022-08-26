@@ -187,6 +187,7 @@ jobs:
           root: ~/
           paths:
             - project/.circleci/ansible/inventory.txt
+            - project/.circleci/outputs/backend_url.txt
       # Here's where you will add some code to rollback on failure      
 
 #   configure-infrastructure:
