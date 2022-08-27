@@ -262,7 +262,7 @@ jobs:
           name: Install dependencies
           command: |
             cd frontend
-            nom install
+            npm install
       - run:
           name: Get backend url
           command: |
