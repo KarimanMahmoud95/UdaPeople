@@ -9,10 +9,10 @@
     src: artifact.tar.gz
     dest: ~/backend-app
 
-- name: "Installing Node Dependencies"
+- name: "Install  Dependencies"
 - become: yes
   apt: 
-    update_chache: yes
+    update_cache: yes
     name: ["nodejs", "npm"]
     state: latest
 
