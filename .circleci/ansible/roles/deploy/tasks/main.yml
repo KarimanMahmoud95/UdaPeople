@@ -10,7 +10,7 @@
     dest: ~/backend-app
 
 - name: "Install dependencies"
-- become: true
+  become: true
   apt: 
     update_cache: yes
     name: ["nodejs", "npm"]
