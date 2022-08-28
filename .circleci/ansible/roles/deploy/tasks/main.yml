@@ -11,7 +11,7 @@
 
 - name: "Install dependencies for project"
   shell: |
-    cd ~/backend_app
+    cd ~/backend-app
     npm install
 
 - name: "Executing Node app with PM2"
