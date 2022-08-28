@@ -10,9 +10,11 @@
     dest: ~/backend-app
 
 - name: "Installing Node Dependencies"
-  shell: |
-    cd ~/backend-app
-    npm install
+- become: yes
+  apt: 
+    update_chache: yes
+    name: ["nodejs", "npm"]
+    state: latest
 
 - name: "Executing Node app with PM2"
   shell: |
