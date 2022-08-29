@@ -23,7 +23,7 @@
 - name:  "start app"
   command:  pm2 start main.js
   args:
-    chdir: ~/backend/dist
+    chdir: ~/backend-app/dist
   environment:
       ENVIRONMENT: production
       TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION') }}"
@@ -35,7 +35,7 @@
       TYPEORM_USERNAME: "{{ lookup('env', 'TYPEORM_USERNAME') }}"
       TYPEORM_PASSWORD: "{{ lookup('env', 'TYPEORM_PASSWORD') }}"
       TYPEORM_DATABASE: "{{ lookup('env', 'TYPEORM_DATABASE') }}"  
-      
+
   register: execute_node
 
 - name: print message
