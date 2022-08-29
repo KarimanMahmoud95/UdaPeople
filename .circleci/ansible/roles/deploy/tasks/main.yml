@@ -15,9 +15,10 @@
     npm install
 
 - name:  start app
+  become: true
   command:  pm2 start main.js
   args:
-    chdir: ~/home/ubuntu/backend-app/dist
+    chdir: ~/backend-app/dist
   environment:
     NODE_ENV: production
     TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION') }}"
