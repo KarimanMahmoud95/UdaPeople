@@ -14,12 +14,10 @@
     cd ~/backend-app
     npm install
 
-- name: "Executing Node app with PM2"
-  shell: |
-    cd ~/home/ubuntu/backend-app/dist
-    pm2 stop default
-    pm2 start main.js
-  
+- name:  start app
+  command:  pm2 start main.js
+  args:
+    chdir: ~/home/ubuntu/backend-app/dist
   environment:
       ENVIRONMENT: production
       TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION') }}"
