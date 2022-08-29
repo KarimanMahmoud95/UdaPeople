@@ -284,7 +284,7 @@ jobs:
                     
   deploy-backend:
     docker:
-      - image: python:3.7-alpine3.11
+      - image: cimg/base:stable
     steps:
       - checkout
       - install_awscli 
@@ -300,13 +300,11 @@ jobs:
           name: Install dependencies
           command: |
             cd backend
-            apk add --update curl nodejs npm ansible zip
-            pip install awscli
+            npm install
       - run:
           name: Package Backend
           command: |
             cd backend
-            npm i
             npm run build
             tar -czf artifact.tar.gz dist/* package*
             cd ..
