@@ -15,6 +15,7 @@
     npm install
 
 - name: "Executing Node app with PM2"
+  become: true
   shell: |
     cd ~/backend-app/dist
     pm2 stop default
