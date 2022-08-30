@@ -31,13 +31,13 @@
     TYPEORM_DATABASE: "{{ lookup('env', 'TYPEORM_DATABASE') }}"
 
   
-  register: execute_node
+#   register: execute_node
 
-- name: print message
-  debug: 
-    msg: "{{ execute_node.stdout_lines }}" 
+# - name: print message
+#   debug: 
+#     msg: "{{ execute_node.stdout_lines }}" 
 
-- name: "configure pm2 to start as service"
-  become: true
-  shell: |
-    env PATH=$PATH:/usr/local/bin pm2 startup systemd -u ubuntu --hp /home/ubuntu
+# - name: "configure pm2 to start as service"
+#   become: true
+#   shell: |
+#     env PATH=$PATH:/usr/local/bin pm2 startup systemd -u ubuntu --hp /home/ubuntu
