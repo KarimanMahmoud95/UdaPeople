@@ -14,6 +14,7 @@
     cd ~/backend-app
     npm install
 
+
 - name:  start app
   command:  pm2 start main.js
   args:
