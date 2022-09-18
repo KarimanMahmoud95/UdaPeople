@@ -1,0 +1,15 @@
+repository [URL01]
+https://github.com/KarimanMahmoud95/cicd_project
+
+s3 bucket [URL02]
+https://udapeople-eb6d00f.s3.amazonaws.com/index.html
+
+cloudfront distribution [URL03]
+https://dks5ev62clwwd.cloudfront.net
+
+backend [URL04]
+ ec2-54-208-148-197.compute-1.amazonaws.com 
+
+prometheus [URL05]
+ec2-44-202-98-211.compute-1.amazonaws.com/
+
