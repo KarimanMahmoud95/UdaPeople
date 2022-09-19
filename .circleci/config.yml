@@ -278,39 +278,35 @@ jobs:
                     
   deploy-backend:
     docker:
-      - image: cimg/base:stable
+      - image: python:3.7-alpine3.11
     steps:
       - checkout
-      - install_awscli 
-      - install_nodejs
-      - install_ansible
       - add_ssh_keys:
-          fingerprints: ["68:ce:a5:8a:ed:b7:58:86:89:04:6d:d9:69:bd:68:de"]
+         fingerprints: ["68:ce:a5:8a:ed:b7:58:86:89:04:6d:d9:69:bd:68:de"] 
       - attach_workspace:
-          at: ~/ 
-      - restore_cache:
-          keys: [backend-deps]        
+          at: ~/
       - run:
           name: Install dependencies
           command: |
-            cd backend
-            npm install
+            apk add --update ansible
+            apk add --update nodejs npm
+            apk add curl
+            pip3 install awscli
       - run:
-          name: Package Backend
+          name: install dependencies  and send app folder to ansible
           command: |
             cd backend
+            npm i
             npm run build
-            tar -czf artifact.tar.gz dist/* package*
             cd ..
-            cp backend/artifact.tar.gz .circleci/ansible/roles/deploy/files       
+            # Zip the directory
+            tar -C backend -czvf artifact.tar.gz .
+            cp ./artifact.tar.gz  .circleci/ansible/roles/deploy/files
       - run:
           name: Deploy backend
           command: |
-            export TYPEORM_MIGRATIONS_DIR=./migrations
-            export TYPEORM_ENTITIES=./modules/domain/**/*.entity{.ts,.js}
-            export TYPEORM_MIGRATIONS=./migrations/*.ts
-            
             cd .circleci/ansible
+            echo "Contents  of the inventory.txt file is -------"
             cat inventory.txt
             ansible-playbook -i inventory.txt deploy-backend.yml
       
