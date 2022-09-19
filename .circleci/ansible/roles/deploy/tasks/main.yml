@@ -14,11 +14,10 @@
     cd ~/backend-app
     npm i
 
-- name: "Executing Node app with PM2"
-  shell: |
-    cd ~/backend-app/dist
-    pm2 stop default
-    pm2 start main.js
+- name:  start app
+  command: pm2 start main.js
+  args:
+    chdir: ~/backend-app/dist
   environment:
       ENVIRONMENT: production
       TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION') }}"
@@ -30,7 +29,7 @@
       TYPEORM_USERNAME: "{{ lookup('env', 'TYPEORM_USERNAME') }}"
       TYPEORM_PASSWORD: "{{ lookup('env', 'TYPEORM_PASSWORD') }}"
       TYPEORM_DATABASE: "{{ lookup('env', 'TYPEORM_DATABASE') }}"
-
+      
   register: execute_node
 
 - name: print message
@@ -41,3 +40,46 @@
     sudo su -c "env PATH=$PATH:/usr/local/bin pm2 startup systemd -u ubuntu --hp /home/ubuntu"
     pm2 save
     
+# - name:  start app
+#   command: pm2 start main.js
+#   args:
+#     chdir: /home/ubuntu/backend-app/dist
+#   environment:
+#       ENVIRONMENT: production
+#       TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION') }}"
+#       TYPEORM_MIGRATIONS_DIR: "./migrations"
+#       TYPEORM_MIGRATIONS: "./migrations/*.js"
+#       TYPEORM_ENTITIES: "./modules/domain/**/*.entity.js"
+#       TYPEORM_HOST: "{{ lookup('env', 'TYPEORM_HOST') }}"
+#       TYPEORM_PORT: "{{ lookup('env', 'TYPEORM_PORT') }}"
+#       TYPEORM_USERNAME: "{{ lookup('env', 'TYPEORM_USERNAME') }}"
+#       TYPEORM_PASSWORD: "{{ lookup('env', 'TYPEORM_PASSWORD') }}"
+#       TYPEORM_DATABASE: "{{ lookup('env', 'TYPEORM_DATABASE') }}"
+ 
+
+  # command: |
+  #   cd /home/ubuntu/backend-app/dist
+  #   export ENVIRONMENT=production
+  #   export TYPEORM_CONNECTION=postgres
+  #   export TYPEORM_MIGRATIONS_DIR="./migrations"
+  #   export TTYPEORM_MIGRATIONS="./migrations/*.js"
+  #   export TYPEORM_ENTITIES="./modules/domain/**/*.entity.js"
+  #   export TYPEORM_HOST=<RDS Instance Endpoint>
+  #   export TYPEORM_PORT=<RDS Instance Port>
+  #   export TYPEORM_USERNAME=<RDS Instance Username>
+  #   export TYPEORM_PASSWORD=<RDS Instance Password>
+  #   export TYPEORM_DATABASE=<RDS Instance Database>
+  #   pm2 start main.js
+
+
+
+
+
+# - name: print message
+#   debug: 
+#     msg: "{{ execute_node.stdout_lines }}" 
+
+# - name: "configure pm2 to start as service"
+#   become: true
+#   shell: |
+#     env PATH=$PATH:/usr/local/bin pm2 startup systemd -u ubuntu --hp /home/ubuntu
