@@ -19,20 +19,32 @@
     chdir: ~/backend
 
 - name:  start app
-  command: pm2 start -f ./main.js
-  args:
-    chdir: /home/ubuntu/backend/dist
-  environment:
-      ENVIRONMENT: production
-      TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION') }}"
-      TYPEORM_MIGRATIONS_DIR: "./migrations"
-      TYPEORM_MIGRATIONS: "./migrations/*.js"
-      TYPEORM_ENTITIES: "./modules/domain/**/*.entity.js"
-      TYPEORM_HOST: "{{ lookup('env', 'TYPEORM_HOST') }}"
-      TYPEORM_PORT: "{{ lookup('env', 'TYPEORM_PORT') }}"
-      TYPEORM_USERNAME: "{{ lookup('env', 'TYPEORM_USERNAME') }}"
-      TYPEORM_PASSWORD: "{{ lookup('env', 'TYPEORM_PASSWORD') }}"
-      TYPEORM_DATABASE: "{{ lookup('env', 'TYPEORM_DATABASE') }}"
+  command: |
+    cd /home/ubuntu/backend/dist
+    export TYPEORM_MIGRATIONS_DIR=./migrations
+    export TYPEORM_ENTITIES=./modules/domain/**/*.entity{.ts,.js}
+    export TYPEORM_MIGRATIONS=./migrations/*.ts
+    export TYPEORM_CONNECTION=postgres
+    export TYPEORM_HOST=udapeople.cogy2mfmxonp.us-east-1.rds.amazonaws.com
+    export TYPEORM_PORT=5432
+    export TYPEORM_USERNAME=postgres
+    export TYPEORM_PASSWORD=5iPm8BzeFxTaiFU9cRat
+    export TYPEORM_DATABASE=glee
+    pm2 start main.js
+  # args:
+  #   chdir: /home/ubuntu/backend/dist
+  # environment:
+  #     ENVIRONMENT: production
+  #     TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION') }}"
+  #     TYPEORM_MIGRATIONS_DIR: "./migrations"
+  #     TYPEORM_MIGRATIONS: "./migrations/*.js"
+  #     TYPEORM_ENTITIES: "./modules/domain/**/*.entity.js"
+  #     TYPEORM_HOST: "{{ lookup('env', 'TYPEORM_HOST') }}"
+  #     TYPEORM_PORT: "{{ lookup('env', 'TYPEORM_PORT') }}"
+  #     TYPEORM_USERNAME: "{{ lookup('env', 'TYPEORM_USERNAME') }}"
+  #     TYPEORM_PASSWORD: "{{ lookup('env', 'TYPEORM_PASSWORD') }}"
+  #     TYPEORM_DATABASE: "{{ lookup('env', 'TYPEORM_DATABASE') }}"
+
       
   register: execute_node
 
