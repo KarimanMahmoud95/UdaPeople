@@ -22,8 +22,8 @@
   command: |
     cd /home/ubuntu/backend/dist
     export TYPEORM_MIGRATIONS_DIR=./migrations
-    export TYPEORM_ENTITIES=./modules/domain/**/*.entity{.ts,.js}
-    export TYPEORM_MIGRATIONS=./migrations/*.ts
+    export TYPEORM_ENTITIES=./modules/domain/**/*.entity.js
+    export TYPEORM_MIGRATIONS=./migrations/*.js
     export TYPEORM_CONNECTION=postgres
     export TYPEORM_HOST=udapeople.cogy2mfmxonp.us-east-1.rds.amazonaws.com
     export TYPEORM_PORT=5432
